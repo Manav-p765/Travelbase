@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Newlist
+    </title>
+</head>
+
+<body>
+    <form method="post" action="/listings/new?_method=put">
+        <input type="text" name="listing[title]" id="" placeholder="enter Name"><br>
+
+        <textarea name="listing[description]" id="" placeholder="enter description of house" rows="3"></textarea><br>
+
+        <input type="text" name="listing[url]" placeholder="enter image url"><br>
+        <input type="text" name="listing[filename]" placeholder="enter image name"><br>
+        <input type="number" name="listing[price]" id="" placeholder="enter price"><br>
+        <input type="text" name="listing[location]" placeholder="enter location"><br>
+        <input type="text" name="listing[country]" placeholder="enter country name"><br>
+        <button>submit</button>
+    </form>
+</body>
+
+</html>

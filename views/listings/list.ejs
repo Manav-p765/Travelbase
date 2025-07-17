@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>
+    <%= onelist.title %> | Travelbase
+  </title>
+  <link rel="stylesheet" href="/list.css" />
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="detail-card">
+      <div class="image-box">
+        <% if (onelist.image && onelist.image.url) { %>
+          <img src="<%= onelist.image.url %>" alt="<%= onelist.image.filename || 'Listing Image' %>">
+          <% } else { %>
+            <p>No image available</p>
+            <% } %>
+      </div>
+
+      <div class="info">
+        <h1>
+          <%= onelist.title %>
+        </h1>
+        <h3>
+          <%= onelist.location %>, <%= onelist.country %>
+        </h3>
+        <p class="description">
+          <%= onelist.description %>
+        </p>
+        <div class="details">
+          <p><strong>Price:</strong> ₹<%= onelist.price %>
+          </p>
+          <p><strong>ID:</strong>
+            <%= onelist._id %>
+          </p>
+        </div>
+        <form method="get" action="/listings/<%= onelist._id %>/update">
+          <button>edit page</button>
+        </form>
+        <form method="post" action="/listings/<%= onelist._id %>?_method=delete">
+          <button>delete</button>
+        </form>
+        <a href="/listings" class="back-button">← Back to all listings</a>
+      </div>
+    </div>
+  </div>
+
+</body>
+
+</html>
