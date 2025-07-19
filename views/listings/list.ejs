@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>
-    <%= onelist.title %> | Travelbase
-  </title>
-  <link rel="stylesheet" href="/list.css" />
-</head>
-
+<% layout("/layouts/boilerplate.ejs") %>
 <body>
 
-  <div class="container">
+  <div class="singlecon offset-3">
     <div class="detail-card">
       <div class="image-box">
         <% if (onelist.image && onelist.image.url) { %>
@@ -39,17 +28,16 @@
             <%= onelist._id %>
           </p>
         </div>
+        <div class="buttons">
         <form method="get" action="/listings/<%= onelist._id %>/update">
-          <button>edit page</button>
+          <button class="btn btn-dark">Edit</button>
         </form>
         <form method="post" action="/listings/<%= onelist._id %>?_method=delete">
-          <button>delete</button>
+          <button class="btn btn-outline-danger">Delete</button>
         </form>
-        <a href="/listings" class="back-button">← Back to all listings</a>
+        </div>
       </div>
     </div>
   </div>
 
 </body>
-
-</html>
