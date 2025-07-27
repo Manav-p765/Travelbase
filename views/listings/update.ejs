@@ -4,40 +4,57 @@
         <div class="row">
             <div class="col-8 offset-3">
                 <div class="uplist">
-                    <form method="post" action="/listings/<%= onelist._id %>/update?_method=put">
+                    <form method="post" action="/listings/<%= onelist._id %>/update?_method=put"
+                        class="needs-validation" novalidate>
                         <h2>update your list</h2>
                         <div class="input mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" name="listing[title]" id="" class="form-control"
-                                value="<%= onelist.title %>">
+                                value="<%= onelist.title %>" required>
+                            <div class="invalid-feedback">
+                                Please select a valid title.
+                            </div>
                         </div>
                         <div class="input mb-3">
                             <label for="description" class="form-label">Description</label>
-                            <textarea name="listing[description]" id="" class="form-control"
-                                rows="3"><%= onelist.description %></textarea>
+                            <textarea name="listing[description]" id="" class="form-control" rows="3"
+                                required><%= onelist.description %> </textarea>
+                            <div class="invalid-feedback">
+                                Please select a valid description.
+                            </div>
                         </div>
                         <div class="input mb-3">
                             <label for="image-url" class="form-label">Image url</label>
                             <input type="text" name="listing[url]" class="form-control"
                                 placeholder="Enter new image url">
+
                         </div>
 
                         <div class="row">
                             <div class="input mb-3 col-4">
                                 <label for="price" class="form-label">Price</label>
                                 <input type="number" name="listing[price]" id="" class="form-control"
-                                    value="<%= onelist.price %>">
+                                    value="<%= onelist.price %>" required>
+                                <div class="invalid-feedback">
+                                    Please select a valid price.
+                                </div>
                             </div>
                             <div class="input mb-3 col-8">
                                 <label for="location" class="form-label">Your Location</label>
                                 <input type="text" name="listing[location]" class="form-control"
-                                    value="<%= onelist.location %>">
+                                    value="<%= onelist.location %>" required>
+                                <div class="invalid-feedback">
+                                    Please select a valid location.
+                                </div>
                             </div>
                         </div>
                         <div class="input mb-3">
                             <label for="country" class="form-label">Country</label>
                             <input type="text" name="listing[country]" class="form-control"
-                                value="<%= onelist.country %>">
+                                value="<%= onelist.country %>" required>
+                            <div class="invalid-feedback">
+                                Please select a valid country.
+                            </div>
                         </div>
 
                         <button class="btn btn-dark">submit</button>
