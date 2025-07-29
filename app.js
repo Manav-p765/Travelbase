@@ -19,6 +19,7 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsmate);
 
+//mongoose connection setup
 main()
     .then(() => {
         console.log("connection was successful");
@@ -29,8 +30,10 @@ main()
 
 async function main() {
     await mongoose.connect('mongodb://127.0.0.1:27017/Travelbase');
-}
+};
 
+
+//validating server side errors
 const validateListing = (req, res, next) => {
     let { error } = listingSchema.validate(req.body);
     if (error) {
@@ -40,7 +43,7 @@ const validateListing = (req, res, next) => {
     else {
         next();
     }
-}
+};
 
 //index route
 app.get("/listings", async (req, res, next) => {
