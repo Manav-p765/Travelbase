@@ -19,6 +19,7 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsmate);
 
+//mongoose connection setup
 main()
     .then(() => {
         console.log("connection was successful");
