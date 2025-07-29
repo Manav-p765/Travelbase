@@ -7,7 +7,7 @@ const ejsmate = require("ejs-mate");
 const path = require("path");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressErrors = require("./utils/expressErrors.js");
-const { listingschema } = require("./schema.js");
+const { listingSchema } = require("./schema.js");
 
 
 app.use(methodOverride("_method"));
@@ -32,15 +32,14 @@ async function main() {
 }
 
 const validateListing = (req, res, next) => {
-    let { error } = listingschema.validate(req.body);
+    let { error } = listingSchema.validate(req.body);
     if (error) {
         let errmsg = error.details.map((el) => el.message).join(",");
-        throw new ExpressErrors(400, errmsg)
+        throw new ExpressErrors(400, errmsg);
     }
     else {
         next();
     }
-
 }
 
 //index route
@@ -87,14 +86,14 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     res.redirect("/listings");
 }));
 
-// app.all( "*", (req, res, next) => {
-//     next(new ExpressError(404, "Page not found!"));
+// app.use( (req, res, next) => {
+//     next(new ExpressErrors(404, "Page not found!"));
 // });
 
 // server side error validation
 app.use((err, req, res, next) => {
     let { statusCode = 404, message = "page not found" } = err;
-
+    console.log(err);
     res.status(statusCode).send(message);
 });
 
