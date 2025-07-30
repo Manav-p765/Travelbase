@@ -3,7 +3,11 @@
   <body>
 
     <div class="singlecon offset-3">
+      <h2>
+        <%= onelist.title %>
+      </h2>
       <div class="detail-card">
+
         <div class="image-box">
           <% if (onelist.image && onelist.image.url) { %>
             <img src="<%= onelist.image.url %>" alt="<%= onelist.image.filename || 'Listing Image' %>">
@@ -13,9 +17,7 @@
         </div>
 
         <div class="info">
-          <h1>
-            <%= onelist.title %>
-          </h1>
+
           <h3>
             <%= onelist.location %>, <%= onelist.country %>
           </h3>
@@ -40,5 +42,63 @@
         </div>
       </div>
     </div>
+
+    <div class="singlecon offset-3">
+      <hr>
+      <h4>Leave a review</h4>
+      <form method="post" action="/listings/<%= onelist._id %>/reviews" class="needs-validation" novalidate>
+        <div class="mb-3">
+          <label for="rating" class="form-label">Rating</label>
+          <input type="range" min="1" max="5" id="rating" name="review[rating]">
+        </div>
+        <div class="mb-3">
+          <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
+          <textarea class="form-control" name="review[comment]" id="comment" rows="3" placeholder="Write a comment"
+            required></textarea>
+          <div class="invalid-feedback">
+            comment required!
+          </div>
+        </div>
+
+        <button class="btn btn-outline-dark">Submit</button>
+      </form>
+      <hr>
+
+      <h3>All reviews</h3>
+      <div class="row">
+        <% for( let review of onelist.review ) { %>
+
+          <div class="col-sm-6 mb-3 mb-sm-3">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">username</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                  <%= review.rating %> stars
+                </h6>
+                <p class="card-text">
+                  <%= review.comment %>
+
+                </p>
+
+
+                <form method="post" action="/listings/<%= onelist._id %>/reviews/<%= review._id %>?_method=delete">
+                  <button class="btn btn-sm btn-dark">delete</button>
+                </form>
+              </div>
+            </div>
+
+          </div>
+
+
+          <% } %>
+      </div>
+
+
+
+
+
+    </div>
+
+
 
   </body>
