@@ -96,3 +96,30 @@ body {
 .btn{
   margin: 1rem;
 }
+
+/* --------review styling--------- */
+.star-rating {
+  direction: rtl;
+  display: inline-flex;
+}
+
+.star-rating input[type="radio"] {
+  display: none;
+}
+
+.star-rating label {
+  font-size: 2em;
+  color: lightgray;
+  cursor: pointer;
+}
+
+.star-rating input:checked ~ label {
+  color: gold;
+}
+
+.stars {
+  font-size: 1.5rem;
+  color: gold;
+  letter-spacing: 2px;
+}
+

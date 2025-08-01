@@ -1,12 +1,21 @@
-body {
+/* 100% height for page layout */
+html, body {
+  height: 100%;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  min-width: 100vh;
 }
 
-.container {
-  margin: 5px;
+/* Main content should expand to fill space */
+main.main-content {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Prevent .container from shrinking */
+main.main-content .container {
+  flex-grow: 1;
 }
 
 .navbar {

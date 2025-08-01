@@ -17,3 +17,13 @@
     }, false)
   })
 })()
+
+// for disappering of flash after 2 second
+setTimeout(() => {
+    const alert = document.getElementById('flash-alert');
+    if (alert) {
+      alert.classList.remove('show'); // Bootstrap fade out
+      alert.classList.add('fade');
+      setTimeout(() => alert.remove(), 500); // Fully remove from DOM after fade
+    }
+  }, 2500);

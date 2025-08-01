@@ -5,14 +5,13 @@
         <button>add new</button>
     </form> -->
 
-        <div class="row row-cols-lg-3 row-cols-md- row-cols-sm-1">
+        <div class="row row-cols-lg-3 row-cols-md mt-4 row-cols-sm-1">
             <% for( let listing of allList ) { %>
                 <div class="card cols card-listing">
                     <a href="/listings/<%= listing._id %>">
                         <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem;"
                             alt="<%= listing.image.filename %>">
                         <div class="card-img-overlay">
-                            <p></p>
                         </div>
                     </a>
 

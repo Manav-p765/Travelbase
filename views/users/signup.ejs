@@ -1,0 +1,44 @@
+<% layout("/layouts/boilerplate.ejs") %>
+
+    <body>
+
+
+        <div class="card bg-light mb-3 mt-4 col-8 offset-2">
+            <div class="card-header">
+                <h3>
+                    sign up for Travelbase
+                </h3>
+            </div>
+            <div class="card-body">
+                <form method="post" action="/signup" class="needs-validation" novalidate>
+                    <div class="input mb-3">
+                        <label for="username" class="form-label">Enter your Username</label>
+                        <input type="text" name="username" autocomplete="off" id="username" class="form-control"
+                            placeholder="username" required>
+                        <div class="invalid-feedback">
+                            Please select a valid Username.
+                        </div>
+                        <br>
+                        <label for="email" class="form-label">Enter your E-mail</label>
+                        <input type="text" name="email" id="email" class="form-control" placeholder="E-mail"
+                            required>
+                        <div class="invalid-feedback">
+                            Please select a valid E-mail.
+                        </div>
+                        <br>
+                        <label for="inputPassword5" class="form-label">Enter your Password</label>
+                        <input type="password" id="password" class="form-control" name="password"
+                            aria-describedby="passwordHelpBlock" placeholder="password" required>
+                        <div id="passwordHelpBlock" class="form-text">
+                            Your password must be 8-20 characters long, contain letters and numbers, and must not
+                            contain spaces, special characters, or emoji.
+                        </div>
+                        <div class="invalid-feedback">
+                            Please select a valid Password.
+                        </div>
+                    </div>
+                    <button class="btn btn-secondary">Signup</button>
+            </div>
+
+
+    </body>

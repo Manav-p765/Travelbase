@@ -49,7 +49,13 @@
       <form method="post" action="/listings/<%= onelist._id %>/reviews" class="needs-validation" novalidate>
         <div class="mb-3">
           <label for="rating" class="form-label">Rating</label>
-          <input type="range" min="1" max="5" id="rating" name="review[rating]">
+          <div class="star-rating">
+            <input type="radio" name="review[rating]" value="5" id="5"><label for="5">★</label>
+            <input type="radio" name="review[rating]" value="4" id="4"><label for="4">★</label>
+            <input type="radio" name="review[rating]" value="3" id="3"><label for="3">★</label>
+            <input type="radio" name="review[rating]" value="2" id="2"><label for="2">★</label>
+            <input type="radio" name="review[rating]" value="1" id="1"><label for="1">★</label>
+          </div>
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
@@ -72,9 +78,18 @@
             <div class="card">
               <div class="card-body">
                 <h5 class="card-title">username</h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">
-                  <%= review.rating %> stars
-                </h6>
+                <span class="stars">
+                  <% for (let i=1; i <=5; i++) { %>
+                    <% if (i <=review.rating) { %>
+                      ★
+                      <% } else { %>
+                        ☆
+                        <% } %>
+                          <% } %>
+                </span>
+                </p>
+
+
                 <p class="card-text">
                   <%= review.comment %>
 
