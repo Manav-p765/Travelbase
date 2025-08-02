@@ -37,9 +37,6 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsmate);
 
-
-
-
 //sessions for cookies
 const sessionOptain = {
     secret: "mysupersecretcode",
@@ -51,7 +48,6 @@ const sessionOptain = {
         httpOnly: true
     }
 };
-
 
 app.use(session(sessionOptain));
 app.use(flash());
@@ -68,6 +64,7 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
     next();
 })
 
@@ -80,15 +77,12 @@ app.use("/listings/:id/reviews", reviewRoute);
 //router for all user route
 app.use("/", userRoute);
 
-
-
 // server side error validation
 app.use((err, req, res, next) => {
     let { statusCode = 404, message = "page not found" } = err;
     console.log(err);
     res.status(statusCode).render("listings/error.ejs", { statusCode, message });
 });
-
 
 //listening route
 app.listen("8080", () => {

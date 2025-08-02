@@ -6,6 +6,7 @@
       <h2>
         <%= onelist.title %>
       </h2>
+
       <div class="detail-card">
 
         <div class="image-box">
@@ -24,6 +25,9 @@
           <p class="description">
             <%= onelist.description %>
           </p>
+          <h5>
+            owner: <%= onelist.owner.username %>
+          </h5>
           <div class="details">
             <p><strong>Price:</strong> ₹<%= onelist.price %>
             </p>
@@ -31,82 +35,90 @@
               <%= onelist._id %>
             </p>
           </div>
-          <div class="buttons">
-            <form method="get" action="/listings/<%= onelist._id %>/update">
-              <button class="btn btn-dark">Edit</button>
-            </form>
-            <form method="post" action="/listings/<%= onelist._id %>?_method=delete">
-              <button class="btn btn-outline-danger">Delete</button>
-            </form>
-          </div>
+
+          <% if (currUser && currUser._id.equals(onelist.owner._id)) { %>
+            <div class="buttons">
+              <form method="get" action="/listings/<%= onelist._id %>/update">
+                <button class="btn btn-dark">Edit</button>
+              </form>
+              <form method="post" action="/listings/<%= onelist._id %>?_method=delete">
+                <button class="btn btn-outline-danger">Delete</button>
+              </form>
+            </div>
+            <% } %>
+
+
         </div>
       </div>
     </div>
 
     <div class="singlecon offset-3">
       <hr>
-      <h4>Leave a review</h4>
-      <form method="post" action="/listings/<%= onelist._id %>/reviews" class="needs-validation" novalidate>
-        <div class="mb-3">
-          <label for="rating" class="form-label">Rating</label>
-          <div class="star-rating">
-            <input type="radio" name="review[rating]" value="5" id="5"><label for="5">★</label>
-            <input type="radio" name="review[rating]" value="4" id="4"><label for="4">★</label>
-            <input type="radio" name="review[rating]" value="3" id="3"><label for="3">★</label>
-            <input type="radio" name="review[rating]" value="2" id="2"><label for="2">★</label>
-            <input type="radio" name="review[rating]" value="1" id="1"><label for="1">★</label>
-          </div>
-        </div>
-        <div class="mb-3">
-          <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
-          <textarea class="form-control" name="review[comment]" id="comment" rows="3" placeholder="Write a comment"
-            required></textarea>
-          <div class="invalid-feedback">
-            comment required!
-          </div>
-        </div>
-
-        <button class="btn btn-outline-dark">Submit</button>
-      </form>
-      <hr>
-
-      <h3>All reviews</h3>
-      <div class="row">
-        <% for( let review of onelist.review ) { %>
-
-          <div class="col-sm-6 mb-3 mb-sm-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">username</h5>
-                <span class="stars">
-                  <% for (let i=1; i <=5; i++) { %>
-                    <% if (i <=review.rating) { %>
-                      ★
-                      <% } else { %>
-                        ☆
-                        <% } %>
-                          <% } %>
-                </span>
-                </p>
-
-
-                <p class="card-text">
-                  <%= review.comment %>
-
-                </p>
-
-
-                <form method="post" action="/listings/<%= onelist._id %>/reviews/<%= review._id %>?_method=delete">
-                  <button class="btn btn-sm btn-dark">delete</button>
-                </form>
-              </div>
+      <% if (currUser) { %>
+        <h4>Leave a review</h4>
+        <form method="post" action="/listings/<%= onelist._id %>/reviews" class="needs-validation" novalidate>
+          <div class="mb-3">
+            <label for="rating" class="form-label">Rating</label>
+            <div class="star-rating">
+              <input type="radio" name="review[rating]" value="5" id="5"><label for="5">★</label>
+              <input type="radio" name="review[rating]" value="4" id="4"><label for="4">★</label>
+              <input type="radio" name="review[rating]" value="3" id="3"><label for="3">★</label>
+              <input type="radio" name="review[rating]" value="2" id="2"><label for="2">★</label>
+              <input type="radio" name="review[rating]" value="1" id="1"><label for="1">★</label>
             </div>
-
+          </div>
+          <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Comments</label>
+            <textarea class="form-control" name="review[comment]" id="comment" rows="3" placeholder="Write a comment"
+              required></textarea>
+            <div class="invalid-feedback">
+              comment required!
+            </div>
           </div>
 
+          <button class="btn btn-outline-dark">Submit</button>
+        </form>
+        <hr>
+        <% } %>
 
-          <% } %>
-      </div>
+
+          <h3>All reviews</h3>
+          <div class="row">
+            <% for( let review of onelist.review ) { %>
+
+              <div class="col-sm-6 mb-3 mb-sm-3">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"> <%= review.author.username %></h5>
+                    <span class="stars">
+                      <% for (let i=1; i <=5; i++) { %>
+                        <% if (i <=review.rating) { %>
+                          ★
+                          <% } else { %>
+                            ☆
+                            <% } %>
+                              <% } %>
+                    </span>
+                    </p>
+
+
+                    <p class="card-text">
+                      <%= review.comment %>
+
+                    </p>
+
+
+                    <form method="post" action="/listings/<%= onelist._id %>/reviews/<%= review._id %>?_method=delete">
+                      <button class="btn btn-sm btn-dark">delete</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <% } %>
+          </div>
 
 
 
