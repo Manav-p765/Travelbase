@@ -63,6 +63,7 @@ const sessionOptain = {
     resave: false,
     saveUninitialized: false,
     cookie: {
+        secure: process.env.NODE_ENV === 'production',
         expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
         maxAge: 7 * 24 * 60 * 60 * 1000,
         httpOnly: true
@@ -85,9 +86,9 @@ app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     res.locals.currUser = req.user || null;
+    console.log(res.locals.currUser.username);
     next();
 });
-
 
 app.get("/", (req, res) => {
     res.redirect("/listings"); // or render a landing page
