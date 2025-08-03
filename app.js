@@ -1,3 +1,7 @@
+if(process.env.NODE_ENV != "production"){
+    require('dotenv').config();
+}
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -8,12 +12,14 @@ const listingRoute = require("./routes/listing.js");
 const reviewRoute = require("./routes/review.js");
 const userRoute = require("./routes/user.js")
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require("connect-flash");
 const { request } = require("http");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
+const dbUrl = process.env.ATLASURL;
 
 //mongoose connection setup
 main()
@@ -25,7 +31,7 @@ main()
     });
 
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Travelbase');
+    await mongoose.connect(dbUrl);
 };
 
 app.use(methodOverride("_method"));
@@ -37,9 +43,22 @@ app.set("views", path.join(__dirname, "/views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.engine("ejs", ejsmate);
 
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    cryto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24 * 3600,
+});
+
+store.on("error", ()=>{
+    console.log("error in mongo session");
+});
+
 //sessions for cookies
 const sessionOptain = {
-    secret: "mysupersecretcode",
+    store,
+    secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {

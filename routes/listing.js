@@ -1,69 +1,29 @@
 const express = require("express");
-const listing = require("../models/listing.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 const router = express.Router();
-const {isLoggedIn, isOwner, validateListing} = require("../middlewares.js");
+const { isLoggedIn, isOwner, validateListing } = require("../middlewares.js");
+const listingcontroller = require("../controllers/listing.js");
+const multer  = require('multer');
+const { storage } = require("../cloudConfig.js");
+const upload = multer({ storage });
 
 //index route
-router.get("/", validateListing, async (req, res, next) => {
-let allList = await listing.find({});
-    res.render("listings/listing.ejs", { allList });
-});
+router.get("/", validateListing, listingcontroller.index);
 
 // new post route
-router.get("/new", isLoggedIn, (req, res) => {
-    res.render("listings/newList.ejs");
-});
+router.get("/new", isLoggedIn, listingcontroller.newlist);
 
-router.post("/new", isLoggedIn, validateListing, wrapAsync(async (req, res, next) => {
-
-    const newlisting = new listing(req.body.listing);
-    newlisting.owner = req.user._id;
-
-    let save = await newlisting.save();
-    req.flash("success", "saved succesfully.");
-    res.redirect("/listings");
-}));
+router.post("/new", isLoggedIn,upload.single("listing[image]"), validateListing, wrapAsync(listingcontroller.createNewList));
 
 //single list route
-router.get("/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let onelist = await listing.findById(id).populate({ path: "review", populate: { path: "author"},}).populate("owner");
-    if (onelist === null) {
-        req.flash("error", "This does not exist.");
-        res.redirect("/listings");
-    } else {
-        res.render("listings/list.ejs", { onelist });
-    }
-}));
+router.get("/:id", wrapAsync(listingcontroller.singleListInfo));
 
 //update route
-router.get("/:id/update", isOwner, isLoggedIn, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let onelist = await listing.findById(id);
-    if (onelist === null) {
-        req.flash("error", "This does not exist.");
-        res.redirect("/listings");
-    } else {
-        res.render("listings/update.ejs", { onelist });
-    }
-    
-}));
+router.get("/:id/update", isOwner, isLoggedIn, wrapAsync(listingcontroller.updateList));
 
-router.put("/:id/update", isOwner, isLoggedIn, validateListing, wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    await listing.findByIdAndUpdate(id, { ...req.body.listing });
-        req.flash("success", "updated succesfully.");
-    res.redirect(`/listings/${id}`);
-}));
+router.put("/:id/update", isOwner, isLoggedIn,upload.single("listing[image]"), validateListing, wrapAsync(listingcontroller.updateListPost));
 
 //delete route 
-router.delete("/:id", isOwner, isLoggedIn, wrapAsync(async (req, res) => {
-    await listing.findByIdAndDelete(req.params.id);
-        req.flash("success", "deleted succesfully.");
-    res.redirect("/listings");
-}));
-
-
+router.delete("/:id", isOwner, isLoggedIn, wrapAsync(listingcontroller.destroyList));
 
 module.exports = router;

@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-8 offset-3">
                 <div class="newlist">
-                    <form method="post" action="/listings/new?_method=post" class="needs-validation" novalidate>
+                    <form method="post" action="/listings/new?_method=post" class="needs-validation" enctype="multipart/form-data" novalidate>
                         <p>Create new list</p>
                         <div class="input mb-3">
                             <label for="title" class="form-label">Title</label>
@@ -23,22 +23,14 @@
                                 Please select a valid description.
                             </div>
                         </div>
-
                         <div class="input mb-3">
-                            <label for="image-url" class="form-label">Image url</label>
-                            <input type="text" name="listing[image][url]" class="form-control"
-                                placeholder="Enter image url">
+                            <label for="image-url" class="form-label">Upload Image</label>
+                            <input type="file" name="listing[image]" class="form-control"
+                                placeholder="Upload image" required>
+                                <div class="invalid-feedback">
+                                    atleast upload 1 image
+                                </div>
                         </div>
-                        <div class="input mb-3">
-                            <label for="" class="filename">Filename</label>
-                            <input type="text" name="listing[image][filename]" class="form-control"
-                                placeholder="image name" required>
-                            <div class="invalid-feedback">
-                                Please select a valid filename.
-                            </div>
-                        </div>
-
-
                         <div class="row">
                             <div class="input mb-3 col-4">
                                 <label for="price" class="form-label">Price</label>
