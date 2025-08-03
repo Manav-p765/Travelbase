@@ -25,7 +25,9 @@ module.exports.createNewList = async (req, res, next) => {
 
 module.exports.singleListInfo = async (req, res) => {
     let { id } = req.params;
-    let onelist = await listing.findById(id).populate({ path: "review", populate: { path: "author" }, }).populate("owner");
+    let onelist = await listing.findById(id)
+    .populate({ path: "review", populate: { path: "author" } })
+    .populate({path: "owner"});
     if (onelist === null) {
         req.flash("error", "This does not exist.");
         res.redirect("/listings");

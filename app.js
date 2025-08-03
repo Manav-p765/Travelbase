@@ -18,7 +18,7 @@ const { request } = require("http");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const Listing = require("./models/listing.js");
+const listing = require("./models/listing.js");
 
 const dbUrl = process.env.ATLASURL;
 
@@ -46,7 +46,7 @@ app.engine("ejs", ejsmate);
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
-    cryto: {
+    crypto: {
         secret: process.env.SECRET,
     },
     touchAfter: 24 * 3600,
@@ -84,9 +84,10 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
-    res.locals.currUser = req.user;
+    res.locals.currUser = req.user || null;
     next();
-})
+});
+
 
 app.get("/", (req, res) => {
     res.redirect("/listings"); // or render a landing page

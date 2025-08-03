@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
-const schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 const Review = require("./review.js");
-const { required } = require("joi");
 
 
-const listingSchema = new schema({
+const listingSchema = new Schema({
   title: {
     type: String,
     required: true,
@@ -23,17 +22,17 @@ const listingSchema = new schema({
   price: {
     type: Number,
     required: true
-  },
+  },  
   location: String,
   country: String,
   review: [
     {
-      type: schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "Review",
     }
   ],
   owner: {
-    type: schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: "User",
   }
 });

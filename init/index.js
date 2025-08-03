@@ -1,24 +1,32 @@
+require("dotenv").config({ path: "../.env" });
 const mongoose = require("mongoose");
-const listing = require("../models/listing.js");
-const intdata = require("../init/data.js");
+const Listing = require("../models/listing");
+const { data } = require("./data");
 
-main()
-    .then(() => {
-        console.log("connection was successful");
-    })
-    .catch((err) => {
-        console.log(err)
+
+async function connectToDB() {
+  try {
+    await mongoose.connect(process.env.ATLASURL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      serverSelectionTimeoutMS: 10000,
     });
-
-async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/Travelbase');
+    console.log("✅ Connected to MongoDB Atlas");
+  } catch (err) {
+    console.error("❌ Connection error:", err);
+    process.exit(1);
+  }
 }
 
-const initDB = async () =>{
-    await listing.deleteMany({});
-    intdata.data = intdata.data.map((obj) => ({...obj, owner:"688dacf67c920daeff39ed1b"}));
-    await listing.insertMany(intdata.data);
-    console.log("data initializied");
+async function seedDB() {
+  try {
+    await Listing.deleteMany({});
+    console.log("✅ Database seeded with listings");
+  } catch (err) {
+    console.error("❌ Seeding error:", err);
+  } finally {
+    mongoose.connection.close();
+  }
 }
 
-initDB();
+connectToDB().then(seedDB);
