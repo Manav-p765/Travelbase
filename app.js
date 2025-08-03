@@ -91,7 +91,7 @@ app.use((req, res, next) => {
 app.use("/listings", listingRoute);
 
 app.use("/", (req, res) => {
-    res.render("listing.ejs");
+    res.render("listings/listing.ejs");
 });
 
 //router for all review request/route
