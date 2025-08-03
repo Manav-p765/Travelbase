@@ -18,6 +18,7 @@ const { request } = require("http");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const Listing = require("./models/listing.js");
 
 const dbUrl = process.env.ATLASURL;
 
@@ -87,12 +88,12 @@ app.use((req, res, next) => {
     next();
 })
 
+app.get("/", (req, res) => {
+    res.redirect("/listings"); // or render a landing page
+});
+
 //router for all listing route
 app.use("/listings", listingRoute);
-
-app.use("/", (req, res) => {
-    res.render("listings/listing.ejs");
-});
 
 //router for all review request/route
 app.use("/listings/:id/reviews", reviewRoute);
