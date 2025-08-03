@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/Manav-p765/Travelbase#readme",
   "dependencies": {
+    "axios": "^1.11.0",
     "bootstrap": "^5.3.7",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.1.0",
