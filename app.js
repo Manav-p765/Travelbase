@@ -90,6 +90,10 @@ app.use((req, res, next) => {
 //router for all listing route
 app.use("/listings", listingRoute);
 
+app.use("/", (req, res) => {
+    res.render("listing.ejs");
+});
+
 //router for all review request/route
 app.use("/listings/:id/reviews", reviewRoute);
 
