@@ -9,9 +9,10 @@
             <% for( let listing of allList ) { %>
                 <div class="card cols card-listing">
                     <a href="/listings/<%= listing._id %>">
-                        <img src="<%= listing.image.url %>" class="card-img-top" style="height: 20rem;"
-                            alt="<%= listing.image.filename %>">
+                        <img src="<%= listing.image[0]?.url %>" class="card-img-top" style="height: 20rem;"
+                            alt="<%= listing.image[0]?.filename || 'Listing Image' %>">
                         <div class="card-img-overlay">
+
                         </div>
                     </a>
 

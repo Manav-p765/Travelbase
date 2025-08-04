@@ -2,7 +2,7 @@
 
   <body>
 
-    <div class="singlecon offset-3">
+    <div class="singlecon offset-auto">
       <h2>
         <%= onelist.title %>
       </h2>
@@ -10,11 +10,43 @@
       <div class="detail-card">
 
         <div class="image-box">
-          <% if (onelist.image && onelist.image.url) { %>
-            <img src="<%= onelist.image.url %>" alt="<%= onelist.image.filename || 'Listing Image' %>">
+          <% if (onelist.image && onelist.image.length> 0) { %>
+            <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+
+              <!-- Indicators -->
+              <div class="carousel-indicators">
+                <% onelist.image.forEach((img, index)=> { %>
+                  <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="<%= index %>"
+                    class="<%= index === 0 ? 'active' : '' %>" aria-current="<%= index === 0 ? 'true' : 'false' %>"
+                    aria-label="Slide <%= index + 1 %>"></button>
+                  <% }); %>
+              </div>
+
+              <!-- Images -->
+              <div class="carousel-inner">
+                <% onelist.image.forEach((img, index)=> { %>
+                  <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                    <img src="<%= img.url %>" class="d-block w-100" alt="<%= img.filename || 'Image' %>">
+                  </div>
+                  <% }); %>
+              </div>
+
+              <!-- Controls -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
+
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
             <% } else { %>
               <p>No image available</p>
               <% } %>
+
         </div>
 
         <div class="info">
@@ -50,10 +82,10 @@
 
         </div>
       </div>
-    </div>
-    <br>
-    <div id="map" style="height: 500px;"></div>
 
+      <br>
+      <div id="map" style="height: 500px;"></div>
+    </div>
     </div>
 
     <div class="singlecon offset-3">

@@ -10,13 +10,15 @@ module.exports.newlist = (req, res) => {
 };
 
 module.exports.createNewList = async (req, res, next) => {
-    let url = req.file.path;
-    let filename = req.file.filename;
+const images = req.files.map(file => ({
+  url: file.path,
+  filename: file.filename
+}));
 
     const newlisting = new listing(req.body.listing);
     newlisting.owner = req.user._id;
 
-    newlisting.image = { url, filename };
+    newlisting.image = images;
 
     let save = await newlisting.save();
     req.flash("success", "saved succesfully.");
@@ -43,24 +45,32 @@ module.exports.updateList = async (req, res) => {
         req.flash("error", "This does not exist.");
         res.redirect("/listings");
     } else {
-        let oldImageUrl = onelist.image.url;
-        oldImageUrl = oldImageUrl.replace("/upload", "/upload/w_250");
-        res.render("listings/update.ejs", { onelist, oldImageUrl });
+        const resizedImageUrls = onelist.image.map(img => {
+        return img.url.replace("/upload", "/upload/w_250");
+    });
+        res.render("listings/update.ejs", { onelist, resizedImageUrls });
     }
 };
 
 module.exports.updateListPost = async (req, res) => {
-    let { id } = req.params;
-    let newlisting = await listing.findByIdAndUpdate(id, { ...req.body.listing });
+  const { id } = req.params;
 
-    if (typeof req.file !== "undefined") {
-        let url = req.file.path;
-        let filename = req.file.filename;
-        newlisting.image = { url, filename };
-        await newlisting.save();
-    }
-    req.flash("success", "updated succesfully.");
-    res.redirect(`/listings/${id}`);
+  // Update other listing fields
+  const newlisting = await listing.findByIdAndUpdate(id, { ...req.body.listing }, { new: true });
+
+  if (req.files && req.files.length > 0) {
+    const newImages = req.files.map(file => ({
+      url: file.path,
+      filename: file.filename
+    }));
+
+    // Push new images to existing ones
+    newlisting.image.push(...newImages);
+    await newlisting.save();
+  }
+
+  req.flash("success", "Updated successfully.");
+  res.redirect(`/listings/${id}`);
 };
 
 module.exports.destroyList = async (req, res) => {

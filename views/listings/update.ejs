@@ -25,11 +25,22 @@
                         </div>
                         <div class="input mb-3">
                             <label for="image-url" class="form-label">previous image</label><br>
-                            <img src="<%= oldImageUrl %>" class="rounded" alt="previous image">
+                            <% if (resizedImageUrls && resizedImageUrls.length> 0) { %>
+                                <div class="d-flex flex-wrap gap-3 mb-3">
+                                    <% resizedImageUrls.forEach((url, index)=> { %>
+                                        <div>
+                                            <img src="<%= url %>" class="rounded" alt="Previous Image <%= index + 1 %>"
+                                                width="250">
+                                        </div>
+                                        <% }) %>
+                                </div>
+                                <% } else { %>
+                                    <p>No previous images available</p>
+                                    <% } %>
                         </div>
                         <div class="input mb-3">
                             <label for="image-url" class="form-label">Upload new image</label>
-                            <input type="file" name="listing[image]" class="form-control"
+                            <input type="file" multiple accept="image/*" name="listing[image]" class="form-control"
                                 placeholder="Upload new image">
                         </div>
 

@@ -12,17 +12,19 @@ const listingSchema = new Schema({
     type: String,
     required: true,
   },
-  image: {
-    filename: String,
-    url: {
-      type: String,
-      required: true,
+  image: [
+    {
+      filename: String,
+      url: {
+        type: String,
+        required: true,
+      }
     }
-  },
+  ],
   price: {
     type: Number,
     required: true
-  },  
+  },
   location: String,
   country: String,
   review: [

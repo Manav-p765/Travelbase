@@ -1,1 +1,5 @@
-#map { height: 180px; }
+#map {
+    height: 180px;
+    border-radius: 25px;
+
+}

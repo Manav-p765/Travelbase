@@ -13,7 +13,7 @@ router.get("/", validateListing, listingcontroller.index);
 // new post route
 router.get("/new", isLoggedIn, listingcontroller.newlist);
 
-router.post("/new", isLoggedIn,upload.single("listing[image]"), validateListing, wrapAsync(listingcontroller.createNewList));
+router.post("/new", isLoggedIn, upload.array("listing[image]", 10), validateListing, wrapAsync(listingcontroller.createNewList));
 
 //single list route
 router.get("/:id", wrapAsync(listingcontroller.singleListInfo));
@@ -21,7 +21,7 @@ router.get("/:id", wrapAsync(listingcontroller.singleListInfo));
 //update route
 router.get("/:id/update", isOwner, isLoggedIn, wrapAsync(listingcontroller.updateList));
 
-router.put("/:id/update", isOwner, isLoggedIn,upload.single("listing[image]"), validateListing, wrapAsync(listingcontroller.updateListPost));
+router.put("/:id/update", isOwner, isLoggedIn,upload.array("listing[image]"), validateListing, wrapAsync(listingcontroller.updateListPost));
 
 //delete route 
 router.delete("/:id", isOwner, isLoggedIn, wrapAsync(listingcontroller.destroyList));
