@@ -119,7 +119,8 @@
         <hr>
         <% } %>
 
-
+          <% if (currUser && onelist.review.length > 0) { %>
+           
           <h3>All reviews</h3>
           <div class="row">
             <% for( let review of onelist.review ) { %>
@@ -159,6 +160,7 @@
 
               <% } %>
           </div>
+          <% } %>
     </div>
     <!-- 🌍 Map Script -->
     <script>
