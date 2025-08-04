@@ -100,6 +100,42 @@ main.main-content .container {
   background-color: #ebebeb;
 }
 
+/* ---search bar --------- */
+
+.container-search{
+  display: flex;
+  width: 100vw;
+  height: 3rem;
+  justify-content: center !important;
+}
+
+.container-fluid form input{
+  width: 20rem;
+  height: 3rem;
+  border-radius: 25px;
+}
+.container-fluid form button{
+    border-radius: 25px;
+    margin: 0 !important;
+}
+
+
+.search-inp {
+  border-radius: 25px;
+  padding: 0.5rem 3rem 0.5rem 3rem;
+  font-size: 1rem;
+}
+
+@media (min-width: 576px) { 
+  .navbar-collapse{
+    background-color: white;
+  }
+  .navbar-collapse{
+    text-align: end;
+
+  }
+ }
+
 /* -------new list style */
 .newlist {
   width: 40rem;

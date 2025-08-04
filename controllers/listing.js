@@ -1,7 +1,7 @@
 const listing = require("../models/listing.js");
 
 module.exports.index = async (req, res, next) => {
-    let allList = await listing.find({});
+    let allList = await listing.find({}).populate("image");
     res.render("listings/listing.ejs", { allList });
 };
 
