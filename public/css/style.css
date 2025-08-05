@@ -126,14 +126,12 @@ main.main-content .container {
   font-size: 1rem;
 }
 
-@media (min-width: 576px) { 
+@media (max-width: 600px) { 
   .navbar-collapse{
-    background-color: white;
-  }
-  .navbar-collapse{
+    background-color: white !important;
     text-align: end;
-
   }
+
  }
 
 /* -------new list style */

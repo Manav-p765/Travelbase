@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
   <body>
-  
+
 
     <div class="singlecon offset-auto">
       <h2>
@@ -65,7 +65,7 @@
           <div class="details">
             <p><strong>Price:</strong> ₹<%= onelist.price %>
             </p>
-           
+
           </div>
 
           <% if (currUser && currUser._id.equals(onelist.owner._id)) { %>
@@ -82,13 +82,14 @@
 
         </div>
       </div>
-
+      <hr>
+      <br>
+      <h2>where you'll be</h2>
       <br>
       <div id="map" style="height: 500px;"></div>
     </div>
-    </div>
 
-    <div class="singlecon offset-3">
+    <div class="singlecon offset-auto">
       <hr>
       <% if (currUser) { %>
         <h4>Leave a review</h4>
@@ -117,48 +118,41 @@
         <hr>
         <% } %>
 
-          <% if (currUser && onelist.review.length > 0) { %>
-           
-          <h3>All reviews</h3>
-          <div class="row">
-            <% for( let review of onelist.review ) { %>
+          <% if (currUser && onelist.review.length> 0) { %>
 
-              <div class="col-sm-6 mb-3 mb-sm-3">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      <%= review.author.username %>
-                    </h5>
-                    <span class="stars">
-                      <% for (let i=1; i <=5; i++) { %>
-                        <% if (i <=review.rating) { %>
-                          ★
-                          <% } else { %>
-                            ☆
-                            <% } %>
+            <h3>Previous expriences</h3>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+              <% for( let review of onelist.review ) { %>
+
+                <div class="col">
+                  <div class="card">
+                    <div class="card-body ">
+                      <h5 class="card-title">
+                        <%= review.author.username %>
+                      </h5>
+                      <span class="stars">
+                        <% for (let i=1; i <=5; i++) { %>
+                          <% if (i <=review.rating) { %>
+                            ★
+                            <% } else { %>
+                              ☆
                               <% } %>
-                    </span>
-                    </p>
-
-
-                    <p class="card-text">
-                      <%= review.comment %>
-
-                    </p>
-
-
-                    <form method="post" action="/listings/<%= onelist._id %>/reviews/<%= review._id %>?_method=delete">
-                      <button class="btn btn-sm btn-dark">delete</button>
-                    </form>
+                                <% } %>
+                      </span>
+                      </p>
+                      <p class="card-text">
+                        <%= review.comment %>
+                      </p>
+                      <form method="post"
+                        action="/listings/<%= onelist._id %>/reviews/<%= review._id %>?_method=delete">
+                        <button class="btn btn-sm btn-dark">delete</button>
+                      </form>
+                    </div>
                   </div>
                 </div>
-
-              </div>
-
-
-              <% } %>
-          </div>
-          <% } %>
+                <% } %>
+            </div>
+            <% } %>
     </div>
     <!-- 🌍 Map Script -->
     <script>
