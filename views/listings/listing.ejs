@@ -1,22 +1,83 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
     <body>
-        <!-- <form method="get" action="/listings/new">
-        <button>add new</button>
-    </form> -->
 
-     <div class="navbar">
-      <div class="container-fluid container-search">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search destination" aria-label="Search" />
-          <button class="btn btn-danger search-btn" type="submit">Search</button>
-        </form>
-      </div>
-    </div>
+        <div class="navbar sticky-top outer-search">
+            <div class="container-fluid container-search">
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search destination"
+                        aria-label="Search" />
+                    <button class="btn btn-danger search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+                </form>
+            </div>
+        </div>
+        <!-- Scrollable Icon Row -->
+        <div class="icon-bar-wrapper mt-3 mb-4">
+            <button class="icon-scroll-btn icon-scroll-left" onclick="scrollIcons('left')">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+
+            <div class="icon-bar-container" id="iconScroll">
+                <div class="icon-block">
+                    <i class="fa-solid fa-hotel fa-lg"></i>
+                    <span>hotels</span>
+                </div>
+                <div class="icon-block">
+                    <i class="fa-solid fa-mountain fa-lg"></i>
+                    <span>mountain</span>
+                </div>
+                <div class="icon-block">
+                    <i class="fa-solid fa-chess-rook fa-lg"></i>
+                    <span>castles</span>
+                </div>
+                <div class="icon-block">
+                    <i class="fa-solid fa-money-bill-transfer fa-lg"></i>
+                    <span>budget</span>
+                </div>
+                <div class="icon-block">
+                    <i class="fa-solid fa-people-roof fa-lg"></i>
+                    <span>family</span>
+                </div>
+                <div class="icon-block">
+                    <i class="fa-solid fa-person-swimming fa-lg"></i>
+                    <span>pool</span>
+                </div>
+                <div class="icon-block">
+                    <i class="fa-solid fa-dumbbell fa-lg"></i>
+                    <span>Gym</span>
+                </div>
+                 <div class="icon-block">
+                    <i class="fa-solid fa-gopuram fa-lg"></i>
+                    <span>Temples</span>
+                </div>
+                 <div class="icon-block">
+                    <i class="fa-solid fa-temperature-low fa-lg"></i>
+                    <span>cool palaces</span>
+                </div>
+                 <div class="icon-block">
+                    <i class="fa-solid fa-dog fa-lg"></i>
+                    <span>pet friendly</span>
+                </div>
+                 <div class="icon-block">
+                    <i class="fa-solid fa-tree-city fa-lg"></i>
+                    <span>tree house</span>
+                </div>
+                 <div class="icon-block">
+                    <i class="fa-solid fa-bell-concierge fa-lg"></i>
+                    <span>dine in</span>
+                </div>
+                <!-- Add more icons if needed -->
+            </div>
+
+            <button class="icon-scroll-btn icon-scroll-right" onclick="scrollIcons('right')">
+                <i class="fa-solid fa-chevron-right"></i>
+            </button>
+        </div>
+
 
         <div class="row row-cols-lg-3 row-cols-md mt-4 row-cols-sm-1">
             <% for( let listing of allList ) { %>
-                <div class="card cols card-listing">
+                <div class="card cols card-listing" aria-hidden="true">
                     <a href="/listings/<%= listing._id %>">
                         <img src="<%= listing.image[0]?.url %>" class="card-img-top" style="height: 20rem;"
                             alt="<%= listing.image[0]?.filename || 'Listing Image' %>">
@@ -26,12 +87,12 @@
                     </a>
 
                     <div class="card-body">
-                        <h5 class="card-title"><a href="/listings/<%= listing._id %>">
+                        <h5 class="card-title placeholder-glow"><a href="/listings/<%= listing._id %>">
                                 <b>
                                     <%= listing.title %>
                                 </b>
                             </a></h5>
-                        <p>
+                        <p class="card-text placeholder-glow">
                             Price: &#8377; <%= listing.price %>rs /Night
                         </p>
                     </div>
@@ -39,4 +100,17 @@
 
                 <% } %>
         </div>
+        <script>
+            function scrollIcons(direction) {
+                const container = document.getElementById("iconScroll");
+                const scrollAmount = 150;
+
+                if (direction === "left") {
+                    container.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+                } else {
+                    container.scrollBy({ left: scrollAmount, behavior: "smooth" });
+                }
+            }
+        </script>
+
     </body>

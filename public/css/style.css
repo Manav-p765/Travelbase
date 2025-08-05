@@ -102,11 +102,17 @@ main.main-content .container {
 
 /* ---search bar --------- */
 
+.outer-search{
+  background-color: transparent;
+  padding: 0 !important;
+  height: 4rem !important;
+}
 .container-search{
   display: flex;
   width: 100vw;
   height: 3rem;
   justify-content: center !important;
+  background-color: transparent;
 }
 
 .container-fluid form input{
@@ -126,12 +132,61 @@ main.main-content .container {
   font-size: 1rem;
 }
 
-@media (max-width: 600px) { 
+@media (max-width: 600px) {
+  .container-fluid form input{
+    width: 10rem;
+  } 
   .navbar-collapse{
     background-color: white !important;
     text-align: end;
   }
+  .icon-bar-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 8px;
+  }
 
+  .icon-scroll-btn {
+    font-size: 18px;
+    align-self: center;
+    margin: 5px 0;
+  }
+
+  .icon-scroll-left,
+  .icon-scroll-right {
+    order: -1; /* Move arrows to top for mobile if needed */
+  }
+
+  .icon-bar-container {
+    gap: 15px;
+    padding: 5px;
+  }
+
+  .icon-block {
+    min-width: 60px;
+  }
+
+  .icon-block span {
+    font-size: 0.8rem;
+  }
+
+  .icon-block i {
+    font-size: 1.5rem;
+  }
+  .icon-scroll-btn {
+    display: none;
+  }
+
+  .icon-bar-container {
+    cursor: grab;
+  }
+  .icon-bar-container {
+  scroll-snap-type: x mandatory;
+}
+
+.icon-block {
+  scroll-snap-align: center;
+}
  }
 
 /* -------new list style */
@@ -144,4 +199,72 @@ main.main-content .container {
   margin-top: 0.5rem;
 }
 
-/* ---------------review in list----------------- */
+/* ---------------icons in list----------------- */
+.icon-bar-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.icon-bar-container {
+  display: flex;
+  gap: 50px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  flex-grow: 1;
+  padding: 10px;
+  scrollbar-width: none; /* Firefox */
+}
+
+.icon-bar-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.icon-block {
+  min-width: 50px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.icon-block i {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 15px;
+  transition: transform 0.2s ease;
+}
+
+.icon-block i:hover {
+  transform: scale(1.2);
+  color: #dc3545; /* Bootstrap danger color */
+}
+
+.icon-block span {
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.icon-scroll-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  padding: 8px;
+  color: #666;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.icon-scroll-btn:focus {
+  outline: none;
+}
+
+.icon-scroll-left {
+  margin-right: 10px;
+}
+
+.icon-scroll-right {
+  margin-left: 10px;
+}
