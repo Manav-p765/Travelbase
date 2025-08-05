@@ -18,7 +18,6 @@ const { request } = require("http");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const listing = require("./models/listing.js");
 
 const dbUrl = process.env.ATLASURL;
 
@@ -52,6 +51,8 @@ const store = MongoStore.create({
 store.on("error", () => {
     console.log("error in mongo session");
 });
+
+app.set('trust proxy', 1); 
 
 //sessions for cookies
 const sessionOptain = {
