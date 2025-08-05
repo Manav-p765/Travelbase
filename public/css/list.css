@@ -8,7 +8,7 @@ body {
 }
 
 .singlecon {
-  width: 60vw;
+  width: 80vw;
   margin: 5px;
   padding: 10px;
   
@@ -23,7 +23,7 @@ body {
   flex-direction: column;
 }
 .carousel-item img {
-  max-height: 400px;
+  max-height: 500px;
   object-fit: cover;
 }
 
@@ -92,6 +92,10 @@ body {
   .description {
     font-size: 15px;
   }
+  
+.singlecon {
+  width: 90;
+}
 }
 
 .buttons{
